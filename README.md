@@ -1,3 +1,4 @@
 # CPUBone-Efficient-Vision-Backbone-Design-for-Devices-with-Low-Parallelization-Capabilities
 CPU-efficient Vision Backbone Architecture, from the CPUBone paper, accepted at CVPR Findings 2026
+
 Code incoming...
