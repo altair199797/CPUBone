@@ -5,6 +5,7 @@
 Official repository for CPUBone, a family of vision backbones optimized for CPU-based inference.
 Authors: Moritz Nottebaum, Matteo Dunnhofer, Christian Micheloni.
 
+(model checkpoints will follow in the next 1-2 weeks.)
 ---
 
 ## Overview
