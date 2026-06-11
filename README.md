@@ -1,6 +1,6 @@
 # CPUBone: Efficient Vision Backbone Design for Devices with Low Parallelization Capabilities
 
-**[Paper (arXiv)](https://arxiv.org/abs/2603.26425)** | **CVPR Findings 2026**
+**[Paper (CVPR)](https://openaccess.thecvf.com/content/CVPR2026F/papers/Nottebaum_CPUBone_Efficient_Vision_Backbone_Design_for_Devices_with_Low_Parallelization_CVPRF_2026_paper.pdf)** | **[Paper (arXiv)](https://arxiv.org/abs/2603.26425)** | **CVPR Findings 2026**
 
 Official repository for CPUBone, a family of vision backbones optimized for CPU-based inference.
 Authors: Moritz Nottebaum, Matteo Dunnhofer, Christian Micheloni.
