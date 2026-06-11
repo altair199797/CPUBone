@@ -5,7 +5,7 @@
 Official repository for CPUBone, a family of vision backbones optimized for CPU-based inference.
 Authors: Moritz Nottebaum, Matteo Dunnhofer, Christian Micheloni.
 
-(model checkpoints will follow in the next 1-2 weeks.)
+**Model checkpoints are available now!!**
 
 ---
 
@@ -32,7 +32,7 @@ The full model definition is self-contained in [`cpubone_model.py`](cpubone_mode
 | CPUBone-B2 | 23.9 | 1354 | 80.3 | 60.3 | 32.4 | 16.1 |
 | CPUBone-B3 | 40.7 | 4054 | 83.1 | 199.8 | 83.1 | 34.1 |
 
-Models and ablations can be found [here](https://www.dropbox.com/scl/fo/ugvs2mpeexp99o7vhhb7e/AHo9-C9GjeCFwD_KDZPfRi4?rlkey=44d7f611sc8iyuhp5trjm0ng0&st=wo6doxpl&dl=0) (just put the folder in the root directory). 
+Models and ablations can be found [here](https://www.dropbox.com/scl/fo/42fb1n952cgrlrb0xokio/ANrEBwPz3R_9KIPhxH_PLzQ?rlkey=r3g2oa6sklx4n7kwh8jiomtqr&st=d6aojlxv&dl=0) (just put the folder in the root directory). 
 Latency measured at batch size 1. RPi 5 and Xeon numbers use ONNX Runtime; Pixel 7 Pro numbers use TFLite.
 
 ### Tiny Backbones
@@ -87,7 +87,7 @@ print(out.shape)
 
 Available convenience functions: `get_cpubone_b0`, `get_cpubone_b1`, `get_cpubone_b15`, `get_cpubone_b2`, `get_cpubone_b3`.
 
-Pretrained weights are expected at `.exp/cls/imagenet/cpubone_<name>/checkpoint/evalmodel.pt`. You can simply download  [checkpoint folder](https://www.dropbox.com/scl/fo/ugvs2mpeexp99o7vhhb7e/AHo9-C9GjeCFwD_KDZPfRi4?rlkey=44d7f611sc8iyuhp5trjm0ng0&st=wo6doxpl&dl=0) and put it into this project directory. It contains all the models and ablations.
+Pretrained weights are expected at `.exp/cls/imagenet/cpubone_<name>/checkpoint/evalmodel.pt`. You can simply download  [checkpoint folder](https://www.dropbox.com/scl/fo/42fb1n952cgrlrb0xokio/ANrEBwPz3R_9KIPhxH_PLzQ?rlkey=r3g2oa6sklx4n7kwh8jiomtqr&st=d6aojlxv&dl=0) and put it into this project directory. It contains all the models and ablations.
 Both the config path and checkpoint path can be passed explicitly:
 
 ```python
@@ -111,7 +111,7 @@ pip install -r requirements.txt
 ```
 
 For ImageNet-1K training and evaluation, set the dataset path in the config file (`configs\cls\imagenet\default.yml`).
-Checkpoints can be downloaded from [here](https://www.dropbox.com/scl/fo/ugvs2mpeexp99o7vhhb7e/AHo9-C9GjeCFwD_KDZPfRi4?rlkey=44d7f611sc8iyuhp5trjm0ng0&st=wo6doxpl&dl=0).
+Checkpoints can be downloaded from [here](https://www.dropbox.com/scl/fo/42fb1n952cgrlrb0xokio/ANrEBwPz3R_9KIPhxH_PLzQ?rlkey=r3g2oa6sklx4n7kwh8jiomtqr&st=d6aojlxv&dl=0).
 
 ---
 
