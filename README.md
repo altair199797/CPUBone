@@ -15,6 +15,8 @@ CPUs, unlike GPUs and other high-parallelization platforms, require models that 
 
 CPUBone also transfers its efficiency to downstream tasks (object detection, semantic segmentation).
 
+Latency benchmarks are run on exported models: desktop and embedded CPU numbers (RPi 5, Xeon) use ONNX Runtime, while mobile numbers (Pixel 7 Pro) use TFLite.
+
 The full model definition is self-contained in [`cpubone_model.py`](cpubone_model.py) and requires only PyTorch.
 
 ---
@@ -30,7 +32,7 @@ The full model definition is self-contained in [`cpubone_model.py`](cpubone_mode
 | CPUBone-B2 | 23.9 | 1354 | 80.3 | 60.3 | 32.4 | 16.1 |
 | CPUBone-B3 | 40.7 | 4054 | 83.1 | 199.8 | 83.1 | 34.1 |
 
-Latency measured at batch size 1.
+Latency measured at batch size 1. RPi 5 and Xeon numbers use ONNX Runtime; Pixel 7 Pro numbers use TFLite.
 
 ### Downstream Tasks
 

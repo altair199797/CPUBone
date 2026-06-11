@@ -94,6 +94,17 @@ def load_state_dict_from_file(file: str, only_state_dict=True) -> dict[str, torc
     return checkpoint
 
 
+def remap_legacy_state_dict(state_dict: dict[str, torch.Tensor]) -> dict[str, torch.Tensor]:
+    """Remap keys from older checkpoint formats to the current model layout."""
+    remapped = {}
+    for k, v in state_dict.items():
+        # conv_proj was nn.Sequential([conv, bn]) → now ConvLayer with .conv / .norm
+        k = k.replace(".conv_proj.0.", ".conv_proj.conv.")
+        k = k.replace(".conv_proj.1.", ".conv_proj.norm.")
+        remapped[k] = v
+    return remapped
+
+
 def build_norm(name="bn2d", num_features=None, **kwargs) -> nn.Module or None:
     
     REGISTERED_NORM_DICT: dict[str, type] = {
@@ -518,7 +529,6 @@ class CPUBoneBlock(nn.Module):
             nn.GroupNorm(1, in_channels),
             nn.Conv2d(in_channels, in_channels * mlpexpans, kernel_size=1),
             nn.GELU(),
-            nn.Dropout(p=0.1),
             nn.Conv2d(in_channels * mlpexpans, in_channels, kernel_size=1),
             nn.Dropout(p=0.1),
         )
@@ -619,9 +629,11 @@ class CPUBoneBackbone(nn.Module):
         grouping=1,
         smallk_only_lasts=False,
         lose_transpose=False,
+        just_unfused=False,
     ) -> None:
         super().__init__()
 
+        fuseconv = fastit and not just_unfused
         stage_num = 0
 
         ### STAGE 0
@@ -641,7 +653,7 @@ class CPUBoneBackbone(nn.Module):
                 out_channels=width_list[0],
                 stride=1,
                 expand_ratio=4 if huge_model else 2,
-                fusedmbconv=fastit,
+                fusedmbconv=fuseconv,
                 grouping=grouping,
                 norm=norm,
                 act_func=act_func,
@@ -663,7 +675,7 @@ class CPUBoneBackbone(nn.Module):
                     out_channels=w,
                     stride=stride,
                     expand_ratio=6 if stride == 2 and (bigit or huge_model) else expand_ratio,
-                    fusedmbconv=fastit,
+                    fusedmbconv=fuseconv,
                     grouping=grouping,
                     norm=norm,
                     act_func=act_func,
@@ -697,7 +709,7 @@ class CPUBoneBackbone(nn.Module):
                         norm=norm,
                         act_func=act_func,
                         bb_convattention=bb_convattention,
-                        fuseconv=fastit,
+                        fuseconv=fuseconv,
                         bb_convin2=bb_convin2,
                         grouping=grouping,
                         att_stride=2 if stage_num == 3 else 1,
@@ -870,6 +882,7 @@ def get_cpubone(config_path="configs/cls/imagenet/cpubone_b1.yaml", checkpoint_p
                 raise ValueError(f"Do not find the pretrained weight of {name}.")
             else:
                 weight = load_state_dict_from_file(checkpoint_path)
+                weight = remap_legacy_state_dict(weight)
                 model.load_state_dict(weight)
     except Exception as e:
         print("Model weights could not be loaded!!!!!!!!!!!!!!!!!!!",e)

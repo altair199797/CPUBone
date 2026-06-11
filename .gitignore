@@ -34,3 +34,5 @@ configs/cls/imagenet/default.yaml
 my_venv/
 *.ttraced
 *.tscript
+.exp/
+check_checkpoints.py
